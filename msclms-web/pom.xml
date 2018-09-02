@@ -5,11 +5,77 @@
     <parent>
         <artifactId>MFCLMS</artifactId>
         <groupId>com.ahau.mfclms</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.ahau.msclms.web</groupId>
     <artifactId>msclms-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
+    <name>msclms-web</name>
+    <description>Demo project for Spring Boot</description>
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ahau.msclms.server</groupId>
+            <artifactId>msclms-server</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>mfclms-dal</artifactId>
+            <groupId>com.ahau.msclms.dal</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>com.ahau.mfclms.common</artifactId>
+            <groupId>com.ahau.msclms.common</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+    <!--spring boot打包的话需要指定一个唯一的入门-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>com.ahau.msclms.MyApplication</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*</include>
+                    <include>*/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <!--mybatis 接口xml编译到源码下面 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
 </project>
